@@ -1,3 +1,4 @@
+import 'package:assignment2/assignment2.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,15 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Core@Web"),
-        ),
-        body: const Center(
-          child: Text("Core2Web"),
-        ),
-      ),
+    return const MaterialApp(
+      home: Assignment2(),
     );
   }
 }
