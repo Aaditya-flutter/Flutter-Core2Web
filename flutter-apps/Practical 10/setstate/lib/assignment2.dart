@@ -8,11 +8,16 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
+  int queCount = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Quiz App", style: TextStyle(fontSize: 25),),
+        title: const Text(
+          "Quiz App",
+          style: TextStyle(fontSize: 25),
+        ),
         backgroundColor: Colors.orange[700],
       ),
       body: Center(
@@ -22,11 +27,13 @@ class _QuizAppState extends State<QuizApp> {
             const SizedBox(
               height: 25,
             ),
-            const Text("Question: 1/10"),
+            Text("Question: $queCount/10",
+            style: const TextStyle(fontSize: 20)),
             const SizedBox(
               height: 20,
             ),
-            const Text("Question 1: What is Flutter?"),
+            const Text("Question 1: What is Flutter?",
+            style: TextStyle(fontSize: 16)),
             const SizedBox(
               height: 20,
             ),
@@ -71,7 +78,15 @@ class _QuizAppState extends State<QuizApp> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {}, child: const Icon(Icons.navigate_next)),
+        backgroundColor: Colors.orange[700],
+          onPressed: () {
+            setState(() {
+              if (queCount < 10) {
+                queCount++;
+              }
+            });
+          },
+          child: const Icon(Icons.navigate_next)),
     );
   }
 }
