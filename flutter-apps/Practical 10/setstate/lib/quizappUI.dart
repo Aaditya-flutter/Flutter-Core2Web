@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class QuizApp extends StatefulWidget {
-  const QuizApp({super.key});
+class QuizAppUI extends StatefulWidget {
+  const QuizAppUI({super.key});
 
   @override
-  State<QuizApp> createState() => _QuizAppState();
+  State<QuizAppUI> createState() => _QuizAppState();
 }
 
-class _QuizAppState extends State<QuizApp> {
+class _QuizAppState extends State<QuizAppUI> {
   int queCount = 1;
 
   @override
