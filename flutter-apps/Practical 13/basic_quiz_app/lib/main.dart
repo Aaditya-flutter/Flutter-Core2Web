@@ -52,29 +52,27 @@ class _QuizAppState extends State {
     },
   ];
 
+  bool questionScreen = true;
+  int questionIndex = 0;
+  int pressed = -1;
+  int result = 0;
+
   MaterialStatePropertyAll<Color?> choosenOption(int option) {
     if (pressed != -1) {
-      if (allQuestions[questionIndex]["options"][option] ==
-          allQuestions[questionIndex]["options"]
-              [allQuestions[questionIndex]["answerIndex"]]) {
-        return const MaterialStatePropertyAll(Colors.green);
-      } else {
+      if (option == allQuestions[questionIndex]["answerIndex"]) {
         if (option == pressed) {
-          return const MaterialStatePropertyAll(Colors.red);
-        } else {
-          return const MaterialStatePropertyAll(Colors.white);
+          result++;
         }
+        return const MaterialStatePropertyAll(Colors.green);
+      } else if (option == pressed) {
+        return const MaterialStatePropertyAll(Colors.red);
+      } else {
+        return const MaterialStatePropertyAll(Colors.white);
       }
     } else {
       return const MaterialStatePropertyAll(Colors.white);
     }
   }
-
-  bool questionScreen = true;
-  int questionIndex = 0;
-  bool correctAns = false;
-  bool wrongAns = false;
-  int pressed = -1;
 
   Scaffold isQuestionScreen() {
     if (questionScreen) {
@@ -82,9 +80,12 @@ class _QuizAppState extends State {
         appBar: AppBar(
           title: const Text(
             "Quiz App",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+            ),
           ),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.amber,
         ),
         body: Column(
           children: [
@@ -97,9 +98,10 @@ class _QuizAppState extends State {
                 Text(
                   "Question: ${questionIndex + 1}/${allQuestions.length}",
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600),
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
@@ -109,9 +111,10 @@ class _QuizAppState extends State {
             Text(
               allQuestions[questionIndex]["question"],
               style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 23,
-                  fontWeight: FontWeight.w400),
+                color: Colors.black,
+                fontSize: 23,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             const SizedBox(
               height: 40,
@@ -122,22 +125,16 @@ class _QuizAppState extends State {
               child: ElevatedButton(
                 onPressed: () {
                   if (pressed == -1) {
-                    setState(() {
-                      pressed = 0;
-                      if (allQuestions[questionIndex]["options"][0] ==
-                          allQuestions[questionIndex]["options"]
-                              [allQuestions[questionIndex]["answerIndex"]]) {
-                        correctAns = true;
-                      } else {
-                        wrongAns = true;
-                      }
-                    });
+                    pressed = 0;
                   }
+                  setState(() {});
                 },
                 style: ButtonStyle(
-                  alignment: const Alignment(-1, 0),
-                  padding:
-                      const MaterialStatePropertyAll(EdgeInsets.only(left: 35)),
+                  // alignment: const Alignment(-1, 0),
+                  alignment: Alignment.centerLeft,
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.only(left: 35),
+                  ),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
@@ -148,14 +145,15 @@ class _QuizAppState extends State {
                 child: Text(
                   "A. ${allQuestions[questionIndex]["options"][0]}",
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             SizedBox(
               width: 340,
@@ -163,22 +161,15 @@ class _QuizAppState extends State {
               child: ElevatedButton(
                 onPressed: () {
                   if (pressed == -1) {
-                    setState(() {
-                      pressed = 1;
-                      if (allQuestions[questionIndex]["options"][1] ==
-                          allQuestions[questionIndex]["options"]
-                              [allQuestions[questionIndex]["answerIndex"]]) {
-                        correctAns = true;
-                      } else {
-                        wrongAns = true;
-                      }
-                    });
+                    pressed = 1;
                   }
+                  setState(() {});
                 },
                 style: ButtonStyle(
                   alignment: const Alignment(-1, 0),
-                  padding:
-                      const MaterialStatePropertyAll(EdgeInsets.only(left: 35)),
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.only(left: 35),
+                  ),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
@@ -189,14 +180,15 @@ class _QuizAppState extends State {
                 child: Text(
                   "B. ${allQuestions[questionIndex]["options"][1]}",
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             SizedBox(
               width: 340,
@@ -204,22 +196,15 @@ class _QuizAppState extends State {
               child: ElevatedButton(
                 onPressed: () {
                   if (pressed == -1) {
-                    setState(() {
-                      pressed = 2;
-                      if (allQuestions[questionIndex]["options"][2] ==
-                          allQuestions[questionIndex]["options"]
-                              [allQuestions[questionIndex]["answerIndex"]]) {
-                        correctAns = true;
-                      } else {
-                        wrongAns = true;
-                      }
-                    });
+                    pressed = 2;
                   }
+                  setState(() {});
                 },
                 style: ButtonStyle(
                   alignment: const Alignment(-1, 0),
-                  padding:
-                      const MaterialStatePropertyAll(EdgeInsets.only(left: 35)),
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.only(left: 35),
+                  ),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
@@ -230,14 +215,15 @@ class _QuizAppState extends State {
                 child: Text(
                   "C. ${allQuestions[questionIndex]["options"][2]}",
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             SizedBox(
               width: 340,
@@ -245,22 +231,15 @@ class _QuizAppState extends State {
               child: ElevatedButton(
                 onPressed: () {
                   if (pressed == -1) {
-                    setState(() {
-                      pressed = 3;
-                      if (allQuestions[questionIndex]["options"][3] ==
-                          allQuestions[questionIndex]["options"]
-                              [allQuestions[questionIndex]["answerIndex"]]) {
-                        correctAns = true;
-                      } else {
-                        wrongAns = true;
-                      }
-                    });
+                    pressed = 3;
                   }
+                  setState(() {});
                 },
                 style: ButtonStyle(
                   alignment: const Alignment(-1, 0),
-                  padding:
-                      const MaterialStatePropertyAll(EdgeInsets.only(left: 35)),
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.only(left: 35),
+                  ),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
@@ -271,37 +250,101 @@ class _QuizAppState extends State {
                 child: Text(
                   "D. ${allQuestions[questionIndex]["options"][3]}",
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
             ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.amber,
           onPressed: () {
             if (pressed != -1) {
-              setState(() {
-                correctAns = false;
-                wrongAns = false;
-                pressed = -1;
-                questionIndex++;
-                if (questionIndex > allQuestions.length - 1) {
-                  questionScreen = false;
-                }
-              });
+              pressed = -1;
+              questionIndex++;
+              if (questionIndex > allQuestions.length - 1) {
+                questionScreen = false;
+              }
             }
+            setState(() {});
           },
           child: const Icon(Icons.navigate_next),
         ),
       );
     } else {
-      return const Scaffold();
+      return Scaffold(
+        body: Container(
+          alignment: Alignment.center,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 300,
+                width: 300,
+                child: Image.asset("assets/images/trophy1.avif"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Congratulations!!!",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                "You Scored: $result/${allQuestions.length}",
+                style: const TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 150,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    questionScreen = true;
+                    questionIndex = 0;
+                    pressed = -1;
+                    result = 0;
+                    setState(() {});
+                  },
+                  style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                    ),
+                    backgroundColor: MaterialStatePropertyAll(
+                      Colors.amber[300],
+                    ),
+                  ),
+                  child: const Text(
+                    "Restart",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 
