@@ -10,25 +10,28 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Message(),
+      debugShowCheckedModeBanner: false,
+      home: MyNotes(),
     );
   }
 }
 
-class Message extends StatefulWidget {
-  const Message({super.key});
+class MyNotes extends StatefulWidget {
+  const MyNotes({super.key});
 
   @override
-  State createState() => _MessageState();
+  State createState() => _MyNotesState();
 }
 
-class _MessageState extends State {
-  final FocusNode myFocusNode = FocusNode();
-  final TextEditingController _myController = TextEditingController();
-  List<String?> myList = [];
+class _MyNotesState extends State {
+  final FocusNode _textFieldFocusNode = FocusNode();
+  final TextEditingController _textEditingController = TextEditingController();
+  List<String?> noteList = [];
 
-  displayMessage(String value) {
-    myList.add(value);
+  stickNote(String value) {
+    noteList.add(value);
+    _textEditingController.clear();
+    _textFieldFocusNode.requestFocus();
     setState(() {});
   }
 
@@ -37,7 +40,7 @@ class _MessageState extends State {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "TextField UI",
+          "My Notes",
           style: TextStyle(
               color: Colors.white,
               fontSize: 30,
@@ -47,9 +50,7 @@ class _MessageState extends State {
         ),
         backgroundColor: Colors.purple,
       ),
-      body: SizedBox(
-        // height: double.infinity,
-        // width: double.infinity,
+      body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -58,8 +59,8 @@ class _MessageState extends State {
               ),
               TextField(
                 autofocus: true,
-                controller: TextEditingController(),
-                focusNode: myFocusNode,
+                controller: _textEditingController,
+                focusNode: _textFieldFocusNode,
                 style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
@@ -69,7 +70,7 @@ class _MessageState extends State {
                     maxHeight: 60,
                     maxWidth: 370,
                   ),
-                  hintText: "Enter your text here",
+                  hintText: "Write your note here",
                   border: InputBorder.none,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -89,20 +90,19 @@ class _MessageState extends State {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
                 onSubmitted: (value) {
-                  displayMessage(value);
-                  UndoHistoryController();
-                  myFocusNode.requestFocus();
+                  stickNote(value);
                 },
               ),
               const SizedBox(
-                height: 40,
+                height: 60,
               ),
-              (myList.isEmpty)
-                  ? const Text("Your messages will appear here")
-                  // : SizedBox(
-                      : ListView.builder(
+              (noteList.isEmpty)
+                  ? const Text("Your notes will appear here")
+                  : SizedBox(
+                      height: 600,
+                      child: ListView.separated(
                         shrinkWrap: true,
-                        itemCount: myList.length,
+                        itemCount: noteList.length,
                         itemBuilder: (context, index) {
                           return Container(
                             width: 300,
@@ -124,7 +124,7 @@ class _MessageState extends State {
                               ],
                             ),
                             child: Text(
-                              "${myList[index]}",
+                              "${noteList[index]}",
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -132,15 +132,22 @@ class _MessageState extends State {
                             ),
                           );
                         },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: 5,
+                          );
+                        },
                       ),
-                    // ),
+                    ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          myFocusNode.requestFocus();
+          (noteList.isEmpty)
+              ? _textFieldFocusNode.requestFocus()
+              : stickNote(_textEditingController.text);
         },
         child: const Icon(
           Icons.sticky_note_2_rounded,
