@@ -20,180 +20,265 @@ class _DreamCompanyState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dream Company"),
+        title: const Text(
+          "Dream Company",
+          style: TextStyle(
+              fontSize: 27, fontWeight: FontWeight.w600, color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                hintText: "Your Name",
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    40,
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: 370,
+                child: TextField(
+                  controller: nameController,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
-                  borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 2,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    40,
-                  ),
-                  borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 2,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+                    hintText: "Your Name",
+                    hintStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        40,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        40,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: compNameController,
-              decoration: InputDecoration(
-                hintText: "Company Name",
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    40,
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 370,
+                child: TextField(
+                  controller: compNameController,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
-                  borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 2,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    40,
-                  ),
-                  borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 2,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+                    hintText: "Company Name",
+                    hintStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        40,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        40,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: locationController,
-              decoration: InputDecoration(
-                hintText: "Company Location",
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    40,
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 370,
+                child: TextField(
+                  controller: locationController,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
-                  borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 2,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    40,
-                  ),
-                  borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 2,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+                    hintText: "Company Location",
+                    hintStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        40,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        40,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Colors.amber,
+                        width: 2,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  name = nameController.text;
-                  compName = compNameController.text;
-                  location = locationController.text;
-                  nameController.clear();
-                  compNameController.clear();
-                  locationController.clear();
-                });
-              },
-              child: const Text("Submit"),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Text("Dream Company"),
-            Row(
-              children: [
-                const SizedBox(
-                  height: 120,
-                  width: 80,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Name: ",
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Company: ",
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Location: ",
-                      ),
-                    ],
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    name = nameController.text;
+                    compName = compNameController.text;
+                    location = locationController.text;
+                    nameController.clear();
+                    compNameController.clear();
+                    locationController.clear();
+                  });
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    Colors.blue[50],
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 120,
-                  width: 150,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "$name",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "$compName",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "$location",
-                      ),
-                    ],
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.blue,
                   ),
                 ),
-                (compName == "Google" || compName == "google" || compName == "GOOGLE")
-                ? SizedBox(
-                    width: 150,
-                    height: 150,
-                    child: Image.asset("assets/images/Google_Icon.png"),
-                  )
-                : const SizedBox(
-                    width: 150,
-                    height: 150,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                width: 390,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 3,
+                    color: Colors.green,
                   ),
-              ],
-            ),
-          ],
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(40),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text(
+                      "Dream Company",
+                      style: TextStyle(
+                        color: Colors.brown,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        SizedBox(
+                          height: 190,
+                          width: 200,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Name:       $name",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "Company: $compName",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "Location:   $location",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        (compName == "Google" ||
+                                compName == "google" ||
+                                compName == "GOOGLE")
+                            ? SizedBox(
+                                height: 190,
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/Google_Icon.png",
+                                      height: 150,
+                                      width: 150,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
