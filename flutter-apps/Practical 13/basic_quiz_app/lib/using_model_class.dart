@@ -18,71 +18,148 @@ class MCAppData {
 class _MQuizAppState extends State {
   List allQuestions = [
     const MCAppData(
-      question: "Who is the founder of Microsoft?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
-      answerIndex: 2,
-    ),
-    const MCAppData(
-      question: "Who is the founder of Apple?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
-      answerIndex: 0,
-    ),
-    const MCAppData(
-      question: "Who is the founder of Amazon?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
-      answerIndex: 1,
-    ),
-    const MCAppData(
-      question: "Who is the founder of SpaceX?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
+      question: "1. Which programming language is developed by Google?",
+      options: ["Java", "C++", "Python", "Dart"],
       answerIndex: 3,
     ),
     const MCAppData(
-      question: "Who is the founder of Google?",
-      options: ["Steve Jobs", "Larry Page", "Bill Gates", "Elon Musk"],
+      question: "2. What is the purpose of firewall in computer security?",
+      options: [
+        "Protect against viruses",
+        "Control unauthorized access",
+        "Regulate internet speed",
+        "Monitor social media usage"
+      ],
       answerIndex: 1,
+    ),
+    const MCAppData(
+      question:
+          "3. In context of internet speed what does the acronym 'Mbps' stand for ?",
+      options: [
+        "MegaByte per Second",
+        "MicroBits per Second",
+        "Megabits per Second",
+        "Milliseconds per Second"
+      ],
+      answerIndex: 0,
+    ),
+    const MCAppData(
+      question:
+          "4. Which company's slogan is 'Think Different' and has been a major player of personal computers?",
+      options: ["Dell", "Apple", "Microsoft", "HP"],
+      answerIndex: 1,
+    ),
+    const MCAppData(
+      question:
+          "5. Which file format is commonly used for compressed archives, especially on Windows systems?",
+      options: ["PNG", "PDF", "ZIP", "GIF"],
+      answerIndex: 2,
     ),
   ];
 
-  bool questionScreen = true;
+  int questionScreen = 0;
   int questionIndex = 0;
   int selectedIndex = -1;
+  int selectionCount = 0;
   int score = 0;
 
   MaterialStateProperty<Color?> checkAnswer(int option) {
     if (selectedIndex != -1) {
       if (option == allQuestions[questionIndex].answerIndex) {
-        if (option == selectedIndex) {
+        if (option == selectedIndex && selectionCount == 1) {
           score++;
         }
         return const MaterialStatePropertyAll(Colors.green);
       } else if (option == selectedIndex) {
         return const MaterialStatePropertyAll(Colors.red);
       } else {
-        return const MaterialStatePropertyAll(Colors.white);
+        return MaterialStatePropertyAll(Colors.amber[100]);
       }
     } else {
-      return const MaterialStatePropertyAll(Colors.white);
+      return MaterialStatePropertyAll(Colors.amber[100]);
     }
   }
 
   void pageNevigation() {
+    selectionCount = 0;
     if (selectedIndex != -1) {
       questionIndex++;
       selectedIndex = -1;
       if (questionIndex > allQuestions.length - 1) {
-        questionScreen = false;
+        questionScreen = 2;
       }
     }
     setState(() {});
   }
 
-  Scaffold isQuestionScreen() {
-    if (questionScreen) {
+  Scaffold whichScreen() {
+    if (questionScreen == 0) {
       return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           title: const Text(
-            "Quiz App",
+            "QuizUp",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontSize: 40,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          color: Colors.amber,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Time for a",
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 60,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Image.asset(
+                "assets/images/quiz2.png",
+                height: 330,
+                width: 330,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 250,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    questionScreen = 1;
+                    setState(() {});
+                  },
+                  child: Text(
+                    "Let's Begin",
+                    style: TextStyle(
+                      color: Colors.blue[900],
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else if (questionScreen == 1) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: const Icon(
+            Icons.laptop_mac,
+            size: 35,
+          ),
+          title: const Text(
+            "Tech Quiz",
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w800,
@@ -96,25 +173,37 @@ class _MQuizAppState extends State {
               const SizedBox(
                 height: 30,
               ),
-              Text(
-                "Question: ${questionIndex + 1}/${allQuestions.length}",
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
+              Container(
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Question: ${questionIndex + 1}/${allQuestions.length}",
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "${allQuestions[questionIndex].question}",
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "${allQuestions[questionIndex].question}",
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(
-                height: 40,
+                height: 35,
               ),
               SizedBox(
                 width: 340,
@@ -124,6 +213,7 @@ class _MQuizAppState extends State {
                     if (selectedIndex == -1) {
                       selectedIndex = 0;
                     }
+                    selectionCount++;
                     setState(() {});
                   },
                   style: ButtonStyle(
@@ -159,6 +249,7 @@ class _MQuizAppState extends State {
                     if (selectedIndex == -1) {
                       selectedIndex = 1;
                     }
+                    selectionCount++;
                     setState(() {});
                   },
                   style: ButtonStyle(
@@ -194,6 +285,7 @@ class _MQuizAppState extends State {
                     if (selectedIndex == -1) {
                       selectedIndex = 2;
                     }
+                    selectionCount++;
                     setState(() {});
                   },
                   style: ButtonStyle(
@@ -229,6 +321,7 @@ class _MQuizAppState extends State {
                     if (selectedIndex == -1) {
                       selectedIndex = 3;
                     }
+                    selectionCount++;
                     setState(() {});
                   },
                   style: ButtonStyle(
@@ -253,39 +346,85 @@ class _MQuizAppState extends State {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 100,
+              ),
+              SizedBox(
+                width: 340,
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: () {
+                    pageNevigation();
+                  },
+                  style: ButtonStyle(
+                    padding: const MaterialStatePropertyAll(
+                      EdgeInsets.only(left: 130),
+                    ),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                    ),
+                    backgroundColor: const MaterialStatePropertyAll(
+                      Colors.amber,
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Icon(
+                        Icons.navigate_next,
+                        color: Colors.black,
+                        size: 35,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.amber,
-          onPressed: () {
-            pageNevigation();
-          },
-          child: const Icon(Icons.navigate_next),
         ),
       );
     } else {
       return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.amber,
+          title: const Text(
+            "QuizUp",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontSize: 40,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
         body: Container(
           alignment: Alignment.center,
-          color: Colors.white,
+          color: Colors.amber[100],
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 300,
-                width: 300,
-                child: Image.asset("assets/images/trophy1.avif"),
-              ),
               const SizedBox(
-                height: 10,
+                height: 70,
               ),
               const Text(
                 "Congratulations!!!",
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 30,
                   fontWeight: FontWeight.w900,
                 ),
+              ),
+              SizedBox(
+                height: 300,
+                width: 300,
+                child: Image.asset("assets/images/trophy3.png"),
               ),
               const SizedBox(
                 height: 10,
@@ -301,49 +440,102 @@ class _MQuizAppState extends State {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "Score: $score/${allQuestions.length}",
-                style: const TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w600,
+              Container(
+                height: 100,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: Colors.amber[200],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.only(left: 15, top: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Score: ",
+                      style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "$score/",
+                          style: const TextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          "${allQuestions.length}",
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 100,
               ),
-              SizedBox(
-                width: 150,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    questionIndex = 0;
-                    questionScreen = true;
-                    selectedIndex = -1;
-                    score = 0;
-                    setState(() {});
-                  },
-                  style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        questionIndex = 0;
+                        questionScreen = 1;
+                        selectedIndex = -1;
+                        score = 0;
+                        setState(() {});
+                      },
+                      style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(60),
+                          ),
+                        ),
+                        backgroundColor: const MaterialStatePropertyAll(
+                          Colors.amber,
+                        ),
+                      ),
+                      child: const Text(
+                        "Restart",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                    backgroundColor: const MaterialStatePropertyAll(
-                      Colors.amber,
-                    ),
                   ),
-                  child: const Text(
-                    "Restart",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
+                ],
               ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.amber,
+          onPressed: () {
+            questionIndex = 0;
+            questionScreen = 0;
+            selectedIndex = -1;
+            score = 0;
+            setState(() {});
+          },
+          child: const Icon(Icons.home),
         ),
       );
     }
@@ -351,6 +543,6 @@ class _MQuizAppState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return isQuestionScreen();
+    return whichScreen();
   }
 }
