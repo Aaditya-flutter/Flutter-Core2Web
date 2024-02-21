@@ -23,7 +23,10 @@ class _DreamCompanyState extends State {
         title: const Text(
           "Dream Company",
           style: TextStyle(
-              fontSize: 27, fontWeight: FontWeight.w600, color: Colors.white),
+            fontSize: 27,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.red,

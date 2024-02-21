@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'quizup.dart';
+import 'todo.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,9 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: QuizApp(),
-      home: QuizUp(),
+      home: Todo(),
     );
   }
 }
