@@ -209,7 +209,7 @@ class _TodoState extends State {
           displayCard();
         },
         shape: const CircleBorder(eccentricity: 0),
-        backgroundColor: const Color.fromRGBO(2, 167, 177, 1),
+        backgroundColor: const Color.fromRGBO(0, 139, 148, 1),
         child: const Icon(
           Icons.add_sharp,
           size: 50,
