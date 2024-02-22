@@ -7,14 +7,25 @@ class DreamCompany extends StatefulWidget {
   State createState() => _DreamCompanyState();
 }
 
+class AppData {
+  final String? name;
+  final String? compName;
+  final String? location;
+
+  const AppData(this.name, this.compName, this.location);
+}
+
 class _DreamCompanyState extends State {
   TextEditingController nameController = TextEditingController();
   TextEditingController compNameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
+  List card = [];
+  List preferanceList = [];
   String? name = "";
   String? compName = "";
   String? location = "";
+  int preferance = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +175,12 @@ class _DreamCompanyState extends State {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
+                    preferance++;
+                    preferanceList.add(preferance);
                     name = nameController.text;
                     compName = compNameController.text;
                     location = locationController.text;
+                    card.add(AppData(name, compName, location));
                     nameController.clear();
                     compNameController.clear();
                     locationController.clear();
@@ -188,96 +202,110 @@ class _DreamCompanyState extends State {
               const SizedBox(
                 height: 50,
               ),
-              Container(
-                width: 390,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 3,
-                    color: Colors.green,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(40),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text(
-                      "Dream Company",
-                      style: TextStyle(
-                        color: Colors.brown,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(
+              SizedBox(
+                width: 400,
+                height: 400,
+                child: ListView.separated(
+                  itemCount: preferanceList.length,
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
                       height: 30,
-                    ),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 15,
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 390,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 3,
+                          color: Colors.green,
                         ),
-                        SizedBox(
-                          height: 190,
-                          width: 200,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Name:       $name",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "Company: $compName",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "Location:   $location",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 15,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        (compName == "Google" ||
-                                compName == "google" ||
-                                compName == "GOOGLE")
-                            ? SizedBox(
+                          Text(
+                            "Company ${preferanceList[index]}",
+                            style: const TextStyle(
+                              color: Colors.brown,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              SizedBox(
                                 height: 190,
+                                width: 200,
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Image.asset(
-                                      "assets/images/Google_Icon.png",
-                                      height: 150,
-                                      width: 150,
+                                    Text(
+                                      "Name:       ${card[index].name}",
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      "Company: ${card[index].compName}",
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      "Location:   ${card[index].location}",
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              (compName == "Google" ||
+                                      compName == "google" ||
+                                      compName == "GOOGLE")
+                                  ? SizedBox(
+                                      height: 190,
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/Google_Icon.png",
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
