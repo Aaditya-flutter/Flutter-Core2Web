@@ -12,7 +12,7 @@ class Todo extends StatefulWidget {
 class TaskData {
   final String? title;
   final String? description;
-  // add variable for date here and also in constructor
+  // add a variable for date here and also in constructor
 
   const TaskData(this.title, this.description);
 }
@@ -25,15 +25,14 @@ class _TodoState extends State {
     const Color.fromRGBO(250, 249, 232, 1),
     const Color.fromRGBO(250, 232, 250, 1),
   ];
-  int taskCount = 0;
   int colorIndex = -1;
 
   void displayCard() {
     colorIndex++;
-    if (colorIndex > cardcolor.length - 1) {
+    if (colorIndex >= cardcolor.length) {
       colorIndex = 0;
     }
-    taskCount++;
+    cardcolor.add(cardcolor[colorIndex]);
     taskCard.add(TaskData(loremIpsum(words: 6), loremIpsum(words: 22)));
     setState(() {});
   }
@@ -50,7 +49,6 @@ class _TodoState extends State {
               color: Colors.white,
               fontSize: 26,
               fontWeight: FontWeight.w700,
-              height: 32.5,
             ),
           ),
         ),
@@ -63,10 +61,11 @@ class _TodoState extends State {
             ),
             SizedBox(
               width: 400,
-              height: 710,
+              height: 760,
               child: ListView.builder(
+                padding: const EdgeInsets.only(bottom: 80),
                 itemCount: taskCard.length,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   return Container(
                     width: 330,
                     height: 127,
@@ -76,7 +75,7 @@ class _TodoState extends State {
                       right: 15,
                     ),
                     decoration: BoxDecoration(
-                      color: cardcolor[colorIndex],
+                      color: cardcolor[index],
                       borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
@@ -99,8 +98,8 @@ class _TodoState extends State {
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(
                                 top: 23,
-                                left: 20,
-                                right: 25,
+                                left: 10,
+                                right: 15,
                               ),
                               decoration: const BoxDecoration(
                                 color: Color.fromRGBO(255, 255, 255, 1),
@@ -125,7 +124,7 @@ class _TodoState extends State {
                                   height: 10,
                                 ),
                                 Container(
-                                  width: 243,
+                                  width: 278,
                                   height: 15,
                                   margin: const EdgeInsets.only(right: 10),
                                   child: Text(
@@ -133,7 +132,6 @@ class _TodoState extends State {
                                     style: GoogleFonts.quicksand(
                                       textStyle: const TextStyle(
                                         color: Color.fromRGBO(0, 0, 0, 1),
-                                        height: 15,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -144,17 +142,19 @@ class _TodoState extends State {
                                   height: 10,
                                 ),
                                 Container(
-                                  width: 243,
+                                  width: 278,
                                   height: 44,
                                   margin: const EdgeInsets.only(right: 10),
-                                  child: Text(
-                                    "${taskCard[index].description}",
-                                    style: GoogleFonts.quicksand(
-                                      textStyle: const TextStyle(
-                                        color: Color.fromRGBO(84, 84, 84, 1),
-                                        height: 14,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: Text(
+                                      "${taskCard[index].description}",
+                                      style: GoogleFonts.quicksand(
+                                        textStyle: const TextStyle(
+                                          color: Color.fromRGBO(84, 84, 84, 1),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -166,13 +166,14 @@ class _TodoState extends State {
                         Row(
                           children: [
                             const SizedBox(
-                              height: 38,
                               width: 10,
                             ),
                             Text(
                               "21 Feb 2024",
                               style: GoogleFonts.quicksand(
                                 textStyle: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
                                   color: Color.fromRGBO(132, 132, 132, 1),
                                 ),
                               ),
@@ -207,9 +208,18 @@ class _TodoState extends State {
         onPressed: () {
           displayCard();
         },
+        shape: const CircleBorder(eccentricity: 0),
         backgroundColor: const Color.fromRGBO(2, 167, 177, 1),
         child: const Icon(
-          Icons.add,
+          Icons.add_sharp,
+          size: 50,
+          color: Colors.white,
+          shadows: [
+            BoxShadow(
+              blurRadius: 8,
+              color: Color.fromRGBO(0, 0, 0, 0.3),
+            ),
+          ],
         ),
       ),
     );
