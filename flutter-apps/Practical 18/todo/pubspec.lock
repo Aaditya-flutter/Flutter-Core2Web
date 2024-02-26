@@ -107,6 +107,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0"
   lints:
     dependency: transitive
     description:
@@ -115,14 +123,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  lorem_ipsum:
-    dependency: "direct main"
-    description:
-      name: lorem_ipsum
-      sha256: b018535db8525a45bbcd7a44e151480e2618e2111c5305725e3713ce7c6ba677
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   matcher:
     dependency: transitive
     description:
