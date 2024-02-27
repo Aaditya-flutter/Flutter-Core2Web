@@ -48,12 +48,8 @@ class _TodoState extends State {
               description: descriptionController.text,
               date: dateController.text),
         );
-        titleController.clear();
-        descriptionController.clear();
-        dateController.clear();
-        setState(() {
-          cardIndex = -1;
-        });
+        cardIndex = -1;
+        setState(() {});
       } else {
         taskCard.add(
           TaskData(
@@ -62,17 +58,14 @@ class _TodoState extends State {
             date: dateController.text,
           ),
         );
-        titleController.clear();
-        descriptionController.clear();
-        dateController.clear();
         setState(() {});
       }
     } else {
-      titleController.clear();
-      descriptionController.clear();
-      dateController.clear();
       setState(() {});
     }
+    titleController.clear();
+    descriptionController.clear();
+    dateController.clear();
   }
 
   @override
@@ -227,8 +220,6 @@ class _TodoState extends State {
                                 onPressed: () {
                                   cardIndex = index;
                                   displayBottomSheet();
-                                  cardIndex = -1;
-                                  setState(() {});
                                 },
                               ),
                               IconButton(
@@ -255,6 +246,10 @@ class _TodoState extends State {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          cardIndex = -1;
+          titleController.clear();
+          descriptionController.clear();
+          dateController.clear();
           displayBottomSheet();
         },
         shape: const CircleBorder(eccentricity: 0),
@@ -426,6 +421,7 @@ class _TodoState extends State {
                   ),
                   TextField(
                     controller: dateController,
+                    readOnly: true,
                     keyboardType: TextInputType.none,
                     onTap: () async {
                       DateTime? pickDate = await showDatePicker(
