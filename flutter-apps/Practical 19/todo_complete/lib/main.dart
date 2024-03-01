@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'dart:ui';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Todo(),
+    );
+  }
+}
 
 class Todo extends StatefulWidget {
   const Todo({super.key});
@@ -10,11 +27,11 @@ class Todo extends StatefulWidget {
 }
 
 class TaskData {
-  String title;
-  String description;
-  String date;
+  final String title;
+  final String description;
+  final String date;
 
-  TaskData(
+  const TaskData(
       {required this.title, required this.description, required this.date});
 }
 
@@ -32,50 +49,39 @@ class _TodoState extends State {
   TextEditingController dateController = TextEditingController();
   FocusNode focusDescripton = FocusNode();
 
-  void selectDate() async {
-    DateTime? pickDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2024),
-      lastDate: DateTime(2050),
-    );
-    String formatedDate = DateFormat.yMMMd().format(pickDate!);
-    setState(() {
-      dateController.text = formatedDate;
-    });
-  }
+  int cardIndex = -1;
 
-  submit(bool isEditing, [TaskData? taskDataObj]) {
-    if (titleController.text.trim().isNotEmpty &&
-        descriptionController.text.trim().isNotEmpty &&
-        dateController.text.trim().isNotEmpty) {
-      if (isEditing) {
-        taskDataObj!.title = titleController.text.trim();
-        taskDataObj.description = descriptionController.text.trim();
-        taskDataObj.date = dateController.text.trim();
+  void displayCard() {
+    if (titleController.text.trim() != "" &&
+        descriptionController.text.trim() != "" &&
+        dateController.text.trim() != "") {
+      if (cardIndex != -1) {
+        taskCard.removeAt(cardIndex);
+        taskCard.insert(
+          cardIndex,
+          TaskData(
+              title: titleController.text,
+              description: descriptionController.text,
+              date: dateController.text),
+        );
+        cardIndex = -1;
+        setState(() {});
       } else {
         taskCard.add(
           TaskData(
-            title: titleController.text.trim(),
-            description: descriptionController.text.trim(),
-            date: dateController.text.trim(),
+            title: titleController.text,
+            description: descriptionController.text,
+            date: dateController.text,
           ),
         );
+        setState(() {});
       }
+    } else {
+      setState(() {});
     }
     titleController.clear();
     descriptionController.clear();
     dateController.clear();
-    setState(() {});
-    Navigator.of(context).pop();
-  }
-
-  editCard(TaskData taskDataObj) {
-    titleController.text = taskDataObj.title;
-    descriptionController.text = taskDataObj.description;
-    dateController.text = taskDataObj.date;
-
-    displayBottomSheet(true, taskDataObj);
   }
 
   @override
@@ -169,16 +175,13 @@ class _TodoState extends State {
                                     width: 265,
                                     height: 15,
                                     margin: const EdgeInsets.only(right: 15),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Text(
-                                        taskCard[index].title,
-                                        style: GoogleFonts.quicksand(
-                                          textStyle: const TextStyle(
-                                            color: Color.fromRGBO(0, 0, 0, 1),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                    child: Text(
+                                      taskCard[index].title,
+                                      style: GoogleFonts.quicksand(
+                                        textStyle: const TextStyle(
+                                          color: Color.fromRGBO(0, 0, 0, 1),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                     ),
@@ -231,7 +234,8 @@ class _TodoState extends State {
                                   Icons.mode_edit_outline_outlined,
                                 ),
                                 onPressed: () {
-                                  editCard(taskCard[index]);
+                                  cardIndex = index;
+                                  displayBottomSheet();
                                 },
                               ),
                               IconButton(
@@ -240,9 +244,8 @@ class _TodoState extends State {
                                   Icons.delete_outline_sharp,
                                 ),
                                 onPressed: () {
-                                  setState(() {
-                                    taskCard.remove(taskCard[index]);
-                                  });
+                                  taskCard.removeAt(index);
+                                  setState(() {});
                                 },
                               ),
                             ],
@@ -259,7 +262,11 @@ class _TodoState extends State {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          displayBottomSheet(false);
+          cardIndex = -1;
+          titleController.clear();
+          descriptionController.clear();
+          dateController.clear();
+          displayBottomSheet();
         },
         shape: const CircleBorder(eccentricity: 0),
         backgroundColor: const Color.fromRGBO(0, 139, 148, 1),
@@ -278,11 +285,11 @@ class _TodoState extends State {
     );
   }
 
-  void displayBottomSheet(bool isEditing, [TaskData? taskDataObj]) {
-    if (!isEditing) {
-      titleController.clear();
-      descriptionController.clear();
-      dateController.clear();
+  void displayBottomSheet() {
+    if (cardIndex != -1) {
+      titleController.text = taskCard[cardIndex].title;
+      descriptionController.text = taskCard[cardIndex].description;
+      dateController.text = taskCard[cardIndex].date;
     }
     showModalBottomSheet(
       isScrollControlled: true,
@@ -337,7 +344,6 @@ class _TodoState extends State {
                       ),
                     ),
                     decoration: const InputDecoration(
-                      isDense: true,
                       constraints: BoxConstraints(
                         maxHeight: 50,
                       ),
@@ -361,6 +367,9 @@ class _TodoState extends State {
                       ),
                     ),
                     textInputAction: TextInputAction.next,
+                    // onSubmitted: (value) {
+                    //   focusDescripton;
+                    // },
                   ),
                   const SizedBox(
                     height: 10,
@@ -381,18 +390,15 @@ class _TodoState extends State {
                   TextField(
                     focusNode: focusDescripton,
                     controller: descriptionController,
-                    minLines: 1,
-                    maxLines: 4,
+                    selectionHeightStyle: BoxHeightStyle.includeLineSpacingTop,
                     style: GoogleFonts.quicksand(
                       textStyle: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                    maxLines: null,
                     decoration: const InputDecoration(
-                      constraints: BoxConstraints(
-                        minHeight: 60,
-                      ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(5),
@@ -433,7 +439,19 @@ class _TodoState extends State {
                     controller: dateController,
                     readOnly: true,
                     keyboardType: TextInputType.none,
-                    onTap: selectDate,
+                    onTap: () async {
+                      DateTime? pickDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2024),
+                        lastDate: DateTime(2025),
+                      );
+                      String formatedDate =
+                          DateFormat.yMMMd().format(pickDate!);
+                      setState(() {
+                        dateController.text = formatedDate;
+                      });
+                    },
                     style: GoogleFonts.quicksand(
                       textStyle: const TextStyle(
                         fontSize: 15,
@@ -445,10 +463,20 @@ class _TodoState extends State {
                         maxHeight: 50,
                       ),
                       suffixIcon: GestureDetector(
-                        onTap: selectDate,
-                        child: const Icon(
-                          Icons.calendar_month_outlined,
-                        ),
+                        onTap: () async {
+                          DateTime? pickDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2024),
+                            lastDate: DateTime(2050),
+                          );
+                          String formatedDate =
+                              DateFormat.yMMMd().format(pickDate!);
+                          setState(() {
+                            dateController.text = formatedDate;
+                          });
+                        },
+                        child: const Icon(Icons.calendar_month),
                       ),
                       enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
@@ -489,7 +517,8 @@ class _TodoState extends State {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    submit(isEditing, taskDataObj);
+                    Navigator.pop(context);
+                    displayCard();
                   },
                   style: const ButtonStyle(
                     shape: MaterialStatePropertyAll(
