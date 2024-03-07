@@ -32,7 +32,6 @@ class _TodoState extends State {
     User(username: "Mohit", password: "open"),
   ];
 
-  bool check = false;
   // bool loginSuccessful = false;
 
   // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -504,23 +503,13 @@ class _TodoState extends State {
                                             ],
                                           ),
                                           GestureDetector(
-                                            onTap: () {
-                                              check = !check;
-                                              setState(() {});
-                                            },
                                             child: Container(
-                                              height: 20,
-                                              width: 20,
                                               decoration: BoxDecoration(
-                                                color: check
-                                                    ? Colors.green
-                                                    : Colors.white,
+                                                color: Colors.white,
                                                 shape: BoxShape.circle,
                                                 border: Border.all(
-                                                  color: check
-                                                      ? Colors.white
-                                                      : const Color.fromRGBO(
-                                                          0, 0, 0, 0.5),
+                                                  color: const Color.fromRGBO(
+                                                      0, 0, 0, 0.5),
                                                 ),
                                               ),
                                               child: const Icon(

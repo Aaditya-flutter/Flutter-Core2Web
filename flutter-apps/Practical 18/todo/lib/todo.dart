@@ -115,7 +115,6 @@ class _TodoState extends State {
               ),
               child: Form(
                 key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -167,15 +166,15 @@ class _TodoState extends State {
                       ),
                       decoration: const InputDecoration(
                         isDense: true,
-                        prefixIcon: Icon(
-                          Icons.person,
-                          size: 20,
+                        constraints: BoxConstraints(
+                          maxHeight: 50,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(5),
                           ),
                           borderSide: BorderSide(
+                            width: 1,
                             color: Color.fromRGBO(0, 139, 148, 1),
                           ),
                         ),
@@ -188,25 +187,10 @@ class _TodoState extends State {
                             color: Color.fromRGBO(0, 139, 148, 1),
                           ),
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.red,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                            color: Colors.red,
-                          ),
-                        ),
                       ),
                       validator: (value) {
+                        print("In username validator");
+                        print(usernameController.text);
                         if (value == null || value.isEmpty) {
                           return "Please enter username";
                         }
@@ -235,39 +219,22 @@ class _TodoState extends State {
                       textAlignVertical: TextAlignVertical.top,
                       style: GoogleFonts.quicksand(
                         textStyle: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 25,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       decoration: const InputDecoration(
                         isDense: true,
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          size: 20,
+                        constraints: BoxConstraints(
+                          maxHeight: 50,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(5),
                           ),
                           borderSide: BorderSide(
+                            width: 1,
                             color: Color.fromRGBO(0, 139, 148, 1),
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.red,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                          borderSide: BorderSide(
-                            width: 1.5,
-                            color: Colors.red,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -282,6 +249,8 @@ class _TodoState extends State {
                       ),
                       obscureText: true,
                       validator: (value) {
+                        print("In password validator");
+                        print(passwordController.text);
                         if (value == null || value.isEmpty) {
                           return "Please enter password";
                         }
@@ -293,32 +262,28 @@ class _TodoState extends State {
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          for (var element in userInfo) {
-                            if (element.username == usernameController.text &&
-                                element.password == passwordController.text) {
-                              loginSuccessful = true;
-                            }
-                          }
-                          if (loginSuccessful) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content:
-                                    Text("Welcome ${usernameController.text}"),
-                                backgroundColor:
-                                    const Color.fromRGBO(0, 139, 148, 1),
-                              ),
-                            );
-                            setState(() {});
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text("Enter valid username or password"),
-                                backgroundColor: Color.fromRGBO(0, 139, 148, 1),
-                              ),
-                            );
-                          }
+                        _formKey.currentState!.validate();
+                        if (userInfo.contains(User(
+                            username: usernameController.text,
+                            password: passwordController.text))) {
+                          setState(() {
+                            loginSuccessful = _formKey.currentState!.validate();
+                          });
+                        }
+                        if (loginSuccessful) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text("Welcome ${usernameController.text}"),
+                            ),
+                          );
+                          // setState(() {});
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Enter valid username or password"),
+                            ),
+                          );
                         }
                       },
                       child: Container(
