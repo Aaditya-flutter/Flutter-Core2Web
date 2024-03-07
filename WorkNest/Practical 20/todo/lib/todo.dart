@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Todo extends StatefulWidget {
   const Todo({super.key});
@@ -386,85 +387,185 @@ class _TodoState extends State {
                                   padding: const EdgeInsets.only(bottom: 50),
                                   itemCount: taskCard.length,
                                   itemBuilder: (context, index) {
-                                    return Container(
-                                      height: 100,
-                                      margin: const EdgeInsets.symmetric(
-                                        vertical: 5,
-                                      ),
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Color.fromRGBO(0, 0, 0, 0.08),
-                                            offset: Offset(0, 4),
-                                            blurRadius: 20,
+                                    return Slidable(
+                                      closeOnScroll: true,
+                                      endActionPane: ActionPane(
+                                        extentRatio: 0.2,
+                                        motion: const DrawerMotion(),
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    editCard(taskCard[index]);
+                                                  },
+                                                  child: Container(
+                                                    height: 31.92,
+                                                    width: 31.92,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color.fromRGBO(
+                                                          89, 57, 241, 1),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          blurRadius: 10,
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.1),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.edit_outlined,
+                                                      size: 20,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      taskCard.remove(
+                                                          taskCard[index]);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 31.92,
+                                                    width: 31.92,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color.fromRGBO(
+                                                          89, 57, 241, 1),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          blurRadius: 10,
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.1),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons
+                                                          .delete_outline_outlined,
+                                                      size: 20,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 55,
-                                            width: 55,
-                                            alignment: Alignment.center,
-                                            margin: const EdgeInsets.symmetric(
-                                              vertical: 20,
-                                              horizontal: 25,
+                                      child: Container(
+                                        height: 100,
+                                        margin: const EdgeInsets.symmetric(
+                                          vertical: 5,
+                                        ),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.08),
+                                              offset: Offset(0, 4),
+                                              blurRadius: 20,
                                             ),
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Color.fromRGBO(
-                                                  217, 217, 217, 1),
-                                            ),
-                                            child: Image.asset(
-                                              "assets/images/onerror.png",
-                                              width: 26.79,
-                                              height: 22.07,
-                                            ),
-                                          ),
-                                          Column(
-                                            children: [
-                                              const SizedBox(
-                                                height: 10,
+                                          ],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 55,
+                                              width: 55,
+                                              alignment: Alignment.center,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 20,
+                                                horizontal: 25,
                                               ),
-                                              Container(
-                                                width: 245,
-                                                height: 15,
-                                                margin: const EdgeInsets.only(
-                                                    right: 15),
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Text(
-                                                    taskCard[index].title,
-                                                    style:
-                                                        GoogleFonts.quicksand(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            0, 0, 0, 1),
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Color.fromRGBO(
+                                                    217, 217, 217, 1),
+                                              ),
+                                              child: Image.asset(
+                                                "assets/images/onerror.png",
+                                                width: 26.79,
+                                                height: 22.07,
+                                              ),
+                                            ),
+                                            Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  width: 245,
+                                                  height: 15,
+                                                  margin: const EdgeInsets.only(
+                                                      right: 15),
+                                                  child: SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    child: Text(
+                                                      taskCard[index].title,
+                                                      style:
+                                                          GoogleFonts.quicksand(
+                                                        textStyle:
+                                                            const TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 1),
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Container(
-                                                width: 245,
-                                                height: 30,
-                                                margin: const EdgeInsets.only(
-                                                    right: 15),
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  width: 245,
+                                                  height: 30,
+                                                  margin: const EdgeInsets.only(
+                                                      right: 15),
+                                                  child: SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    child: Text(
+                                                      taskCard[index]
+                                                          .description,
+                                                      style:
+                                                          GoogleFonts.quicksand(
+                                                        textStyle:
+                                                            const TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              84, 84, 84, 1),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  width: 245,
+                                                  height: 15,
+                                                  margin: const EdgeInsets.only(
+                                                      right: 15),
                                                   child: Text(
-                                                    taskCard[index].description,
+                                                    taskCard[index].date,
                                                     style:
                                                         GoogleFonts.quicksand(
                                                       textStyle:
@@ -478,48 +579,27 @@ class _TodoState extends State {
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Container(
-                                                width: 245,
-                                                height: 15,
-                                                margin: const EdgeInsets.only(
-                                                    right: 15),
-                                                child: Text(
-                                                  taskCard[index].date,
-                                                  style: GoogleFonts.quicksand(
-                                                    textStyle: const TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          84, 84, 84, 1),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: const Color.fromRGBO(
+                                                        0, 0, 0, 0.5),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          GestureDetector(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: const Color.fromRGBO(
-                                                      0, 0, 0, 0.5),
+                                                child: const Icon(
+                                                  Icons.check,
+                                                  color: Colors.white,
+                                                  size: 15,
                                                 ),
                                               ),
-                                              child: const Icon(
-                                                Icons.check,
-                                                color: Colors.white,
-                                                size: 15,
-                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
