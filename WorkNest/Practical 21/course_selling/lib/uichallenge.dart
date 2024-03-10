@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:svg_flutter/svg_flutter.dart';
+// import 'package:svg_flutter/svg_flutter.dart';
 
 class UIChallenge extends StatefulWidget {
   const UIChallenge({super.key});
@@ -528,15 +528,20 @@ class _UIChallengeState extends State<UIChallenge> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: ListView(
-                      itemExtent: 97,
-                      children: [
-                        Container(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: ListView.separated(
+                      itemCount: 10,
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 20,
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        return Container(
                           width: 300,
                           height: 70,
-                          margin: const EdgeInsets.only(
-                            bottom: 20,
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 30,
                           ),
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(255, 255, 255, 1),
@@ -545,9 +550,10 @@ class _UIChallengeState extends State<UIChallenge> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                  blurRadius: 40,
-                                  offset: Offset(0, 8),
-                                  color: Color.fromRGBO(0, 0, 0, 0.15)),
+                                blurRadius: 40,
+                                offset: Offset(0, 8),
+                                color: Color.fromRGBO(0, 0, 0, 0.15),
+                              ),
                             ],
                           ),
                           child: Row(
@@ -599,348 +605,8 @@ class _UIChallengeState extends State<UIChallenge> {
                               )
                             ],
                           ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 70,
-                          margin: const EdgeInsets.only(
-                            bottom: 20,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 40,
-                                  offset: Offset(0, 8),
-                                  color: Color.fromRGBO(0, 0, 0, 0.15)),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 46,
-                                height: 60,
-                                margin: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color.fromRGBO(230, 239, 239, 1),
-                                ),
-                                child: Image.asset("assets/images/youtube.png"),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  left: 6,
-                                  top: 12,
-                                  right: 45,
-                                  bottom: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Introduction",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy text ...",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(143, 143, 143, 1),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 70,
-                          margin: const EdgeInsets.only(
-                            bottom: 20,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 40,
-                                  offset: Offset(0, 8),
-                                  color: Color.fromRGBO(0, 0, 0, 0.15)),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 46,
-                                height: 60,
-                                margin: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color.fromRGBO(230, 239, 239, 1),
-                                ),
-                                child: Image.asset("assets/images/youtube.png"),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  left: 6,
-                                  top: 12,
-                                  right: 45,
-                                  bottom: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Introduction",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy text ...",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(143, 143, 143, 1),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 70,
-                          margin: const EdgeInsets.only(
-                            bottom: 20,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 40,
-                                  offset: Offset(0, 8),
-                                  color: Color.fromRGBO(0, 0, 0, 0.15)),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 46,
-                                height: 60,
-                                margin: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color.fromRGBO(230, 239, 239, 1),
-                                ),
-                                child: Image.asset("assets/images/youtube.png"),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  left: 6,
-                                  top: 12,
-                                  right: 45,
-                                  bottom: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Introduction",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy text ...",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(143, 143, 143, 1),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 70,
-                          margin: const EdgeInsets.only(
-                            bottom: 20,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 40,
-                                  offset: Offset(0, 8),
-                                  color: Color.fromRGBO(0, 0, 0, 0.15)),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 46,
-                                height: 60,
-                                margin: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color.fromRGBO(230, 239, 239, 1),
-                                ),
-                                child: Image.asset("assets/images/youtube.png"),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  left: 6,
-                                  top: 12,
-                                  right: 45,
-                                  bottom: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Introduction",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy text ...",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(143, 143, 143, 1),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 70,
-                          margin: const EdgeInsets.only(
-                            bottom: 20,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 40,
-                                  offset: Offset(0, 8),
-                                  color: Color.fromRGBO(0, 0, 0, 0.15)),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 46,
-                                height: 60,
-                                margin: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color.fromRGBO(230, 239, 239, 1),
-                                ),
-                                child: Image.asset("assets/images/youtube.png"),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  left: 6,
-                                  top: 12,
-                                  right: 45,
-                                  bottom: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Introduction",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Lorem Ipsum is simply dummy text ...",
-                                      style: GoogleFonts.jost(
-                                        textStyle: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(143, 143, 143, 1),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),
