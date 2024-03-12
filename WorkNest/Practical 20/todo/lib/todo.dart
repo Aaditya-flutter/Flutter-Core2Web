@@ -2,40 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo/main.dart';
 
 class Todo extends StatefulWidget {
   const Todo({super.key});
 
   @override
-  State createState() => _TodoState();
+  State<Todo> createState() => _TodoState();
 }
 
 class TaskData {
+  int? id;
   String title;
   String description;
   String date;
 
   TaskData(
-      {required this.title, required this.description, required this.date});
+      {this.id,
+      required this.title,
+      required this.description,
+      required this.date});
+
+  Map<String, dynamic> taskMap() {
+    return {
+      "id": id,
+      "title": title,
+      "description": description,
+      "date": date,
+    };
+  }
+
+  @override
+  String toString() {
+    return '{id: $id, title: $title, description: $description, date: $date}';
+  }
 }
 
-class User {
-  String username;
-  String password;
-
-  User({required this.username, required this.password});
-}
-
-class _TodoState extends State {
-  List<TaskData> taskCard = [];
-  List<User> userInfo = [
-    User(username: "Aaditya", password: "login"),
-    User(username: "Mohit", password: "open"),
-  ];
-
-  // bool loginSuccessful = false;
-
-  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class _TodoState extends State<Todo> {
+  List<TaskData> taskCard = dbList;
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -256,6 +260,7 @@ class _TodoState extends State {
                 child: ElevatedButton(
                   onPressed: () {
                     submit(isEditing, taskDataObj);
+                    Navigator.of(context).pop();
                   },
                   style: const ButtonStyle(
                     shape: MaterialStatePropertyAll(
@@ -304,7 +309,7 @@ class _TodoState extends State {
     });
   }
 
-  void submit(bool isEditing, [TaskData? taskDataObj]) {
+  void submit(bool isEditing, [TaskData? taskDataObj]) async {
     if (titleController.text.trim().isNotEmpty &&
         descriptionController.text.trim().isNotEmpty &&
         dateController.text.trim().isNotEmpty) {
@@ -312,21 +317,31 @@ class _TodoState extends State {
         taskDataObj!.title = titleController.text.trim();
         taskDataObj.description = descriptionController.text.trim();
         taskDataObj.date = dateController.text.trim();
+        await updateTask(taskDataObj);
       } else {
-        taskCard.add(
+        await insertTask(
           TaskData(
             title: titleController.text.trim(),
             description: descriptionController.text.trim(),
             date: dateController.text.trim(),
           ),
         );
+        dbList = await getTasksData();
+        // taskCard.add(
+        //   TaskData(
+        //     title: titleController.text.trim(),
+        //     description: descriptionController.text.trim(),
+        //     date: dateController.text.trim(),
+        //   ),
+        // );
       }
     }
     titleController.clear();
     descriptionController.clear();
     dateController.clear();
-    setState(() {});
-    Navigator.of(context).pop();
+    setState(() {
+      taskCard = dbList;
+    });
   }
 
   void editCard(TaskData taskDataObj) {
@@ -339,234 +354,6 @@ class _TodoState extends State {
 
   @override
   Widget build(BuildContext context) {
-    // if (!loginSuccessful) {
-    //   return Scaffold(
-    //     body: Center(
-    //       child: SingleChildScrollView(
-    //         child: Container(
-    //           width: 370,
-    //           padding: const EdgeInsets.all(22),
-    //           decoration: BoxDecoration(
-    //             color: Colors.white,
-    //             boxShadow: const [
-    //               BoxShadow(
-    //                 color: Colors.black12,
-    //                 blurRadius: 10,
-    //               )
-    //             ],
-    //             borderRadius: BorderRadius.circular(20),
-    //           ),
-    //           child: Form(
-    //             key: _formKey,
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 const SizedBox(
-    //                   height: 10,
-    //                 ),
-    //                 Text(
-    //                   "Log in",
-    //                   style: GoogleFonts.quicksand(
-    //                     textStyle: const TextStyle(
-    //                       fontSize: 35,
-    //                       fontWeight: FontWeight.w800,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Text(
-    //                   "Log in to continue",
-    //                   style: GoogleFonts.quicksand(
-    //                     textStyle: TextStyle(
-    //                       color: Colors.grey[800],
-    //                       fontSize: 16,
-    //                       fontWeight: FontWeight.w700,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 30,
-    //                 ),
-    //                 Text(
-    //                   "Username",
-    //                   style: GoogleFonts.quicksand(
-    //                     textStyle: const TextStyle(
-    //                       color: Colors.black54,
-    //                       fontSize: 16,
-    //                       fontWeight: FontWeight.w500,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 TextFormField(
-    //                   controller: usernameController,
-    //                   style: GoogleFonts.quicksand(
-    //                     textStyle: const TextStyle(
-    //                       fontSize: 16,
-    //                       fontWeight: FontWeight.w500,
-    //                     ),
-    //                   ),
-    //                   decoration: const InputDecoration(
-    //                     isDense: true,
-    //                     constraints: BoxConstraints(
-    //                       maxHeight: 50,
-    //                     ),
-    //                     enabledBorder: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.all(
-    //                         Radius.circular(5),
-    //                       ),
-    //                       borderSide: BorderSide(
-    //                         width: 1,
-    //                         color: Color.fromRGBO(0, 139, 148, 1),
-    //                       ),
-    //                     ),
-    //                     focusedBorder: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.all(
-    //                         Radius.circular(5),
-    //                       ),
-    //                       borderSide: BorderSide(
-    //                         width: 1.5,
-    //                         color: Color.fromRGBO(0, 139, 148, 1),
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   validator: (value) {
-    //                     print("In username validator");
-    //                     print(usernameController.text);
-    //                     if (value == null || value.isEmpty) {
-    //                       return "Please enter username";
-    //                     }
-    //                     return null;
-    //                   },
-    //                   textInputAction: TextInputAction.next,
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 20,
-    //                 ),
-    //                 Text(
-    //                   "Password",
-    //                   style: GoogleFonts.quicksand(
-    //                     textStyle: const TextStyle(
-    //                       color: Colors.black54,
-    //                       fontSize: 16,
-    //                       fontWeight: FontWeight.w500,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 TextFormField(
-    //                   controller: passwordController,
-    //                   textAlignVertical: TextAlignVertical.top,
-    //                   style: GoogleFonts.quicksand(
-    //                     textStyle: const TextStyle(
-    //                       fontSize: 25,
-    //                       fontWeight: FontWeight.w500,
-    //                     ),
-    //                   ),
-    //                   decoration: const InputDecoration(
-    //                     isDense: true,
-    //                     constraints: BoxConstraints(
-    //                       maxHeight: 50,
-    //                     ),
-    //                     enabledBorder: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.all(
-    //                         Radius.circular(5),
-    //                       ),
-    //                       borderSide: BorderSide(
-    //                         width: 1,
-    //                         color: Color.fromRGBO(0, 139, 148, 1),
-    //                       ),
-    //                     ),
-    //                     focusedBorder: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.all(
-    //                         Radius.circular(5),
-    //                       ),
-    //                       borderSide: BorderSide(
-    //                         width: 1.5,
-    //                         color: Color.fromRGBO(0, 139, 148, 1),
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   obscureText: true,
-    //                   validator: (value) {
-    //                     print("In password validator");
-    //                     print(passwordController.text);
-    //                     if (value == null || value.isEmpty) {
-    //                       return "Please enter password";
-    //                     }
-    //                     return null;
-    //                   },
-    //                 ),
-    //                 const SizedBox(
-    //                   height: 30,
-    //                 ),
-    //                 GestureDetector(
-    //                   onTap: () {
-    //                     _formKey.currentState!.validate();
-    //                     if (userInfo.contains(User(
-    //                         username: usernameController.text,
-    //                         password: passwordController.text))) {
-    //                       setState(() {
-    //                         loginSuccessful = _formKey.currentState!.validate();
-    //                       });
-    //                     }
-    //                     if (loginSuccessful) {
-    //                       ScaffoldMessenger.of(context).showSnackBar(
-    //                         SnackBar(
-    //                           content:
-    //                               Text("Welcome ${usernameController.text}"),
-    //                         ),
-    //                       );
-    //                       // setState(() {});
-    //                     } else {
-    //                       ScaffoldMessenger.of(context).showSnackBar(
-    //                         const SnackBar(
-    //                           content: Text("Enter valid username or password"),
-    //                         ),
-    //                       );
-    //                     }
-    //                   },
-    //                   child: Container(
-    //                     height: 50,
-    //                     decoration: BoxDecoration(
-    //                       color: const Color.fromRGBO(0, 139, 148, 1),
-    //                       borderRadius: BorderRadius.circular(5),
-    //                     ),
-    //                     child: Row(
-    //                       mainAxisAlignment: MainAxisAlignment.center,
-    //                       children: [
-    //                         Text(
-    //                           "Log in",
-    //                           style: GoogleFonts.quicksand(
-    //                             textStyle: const TextStyle(
-    //                               color: Colors.white,
-    //                               fontSize: 20,
-    //                               fontWeight: FontWeight.w700,
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         const SizedBox(
-    //                           width: 10,
-    //                         ),
-    //                         const Icon(
-    //                           Icons.arrow_forward_outlined,
-    //                           color: Colors.white,
-    //                         )
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 )
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // } else {
     return Scaffold(
       body: Container(
         color: const Color.fromRGBO(111, 81, 255, 1),
@@ -647,6 +434,7 @@ class _TodoState extends State {
                                       closeOnScroll: true,
                                       endActionPane: ActionPane(
                                         extentRatio: 0.2,
+                                        closeThreshold: 0.5,
                                         motion: const DrawerMotion(),
                                         children: [
                                           Expanded(
@@ -682,10 +470,14 @@ class _TodoState extends State {
                                                   ),
                                                 ),
                                                 GestureDetector(
-                                                  onTap: () {
+                                                  onTap: () async {
+                                                    deleteTask(taskCard[index]);
+                                                    dbList =
+                                                        await getTasksData();
+                                                    taskCard = dbList;
                                                     setState(() {
-                                                      taskCard.remove(
-                                                          taskCard[index]);
+                                                      // taskCard.remove(
+                                                      //     taskCard[index]);
                                                     });
                                                   },
                                                   child: Container(
@@ -892,5 +684,4 @@ class _TodoState extends State {
       ),
     );
   }
-  // }
 }

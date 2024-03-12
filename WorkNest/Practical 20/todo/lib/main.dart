@@ -4,19 +4,79 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 dynamic database;
+List<TaskData> dbList = [];
 
-void main() async {
-  runApp(const MainApp());
+Future insertTask(TaskData obj) async {
+  final localDB = await database;
 
-  database = openDatabase(
-    join(await getDatabasesPath(), "todoDB.db"),
-    version: 1,
-    onCreate: (db, version) async {
-      await db.execute(
-        "CREATE TABLE Tasks(title TEXT, description TEXT, date DATE)",
+  localDB.insert(
+    "Tasks",
+    obj.taskMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+}
+
+Future<List<TaskData>> getTasksData() async {
+  final localDB = await database;
+
+  List<Map<String, dynamic>> taskdataObjMap = await localDB.query("Tasks");
+
+  return List.generate(
+    taskdataObjMap.length,
+    (index) {
+      return TaskData(
+        id: taskdataObjMap[index]['id'],
+        title: taskdataObjMap[index]['title'],
+        description: taskdataObjMap[index]['description'],
+        date: taskdataObjMap[index]['date'],
       );
     },
   );
+}
+
+Future deleteTask(TaskData obj) async {
+  final localDB = await database;
+
+  await localDB.delete(
+    "Tasks",
+    where: "id = ?",
+    whereArgs: [obj.id],
+  );
+}
+
+Future updateTask(TaskData obj) async{
+  final localDB = await database;
+
+  await localDB.update(
+    "Tasks",
+    obj.taskMap(),
+    where: "id = ?",
+    whereArgs: [obj.id],
+  );
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  database = openDatabase(
+    join(await getDatabasesPath(), "todoDB1.db"),
+    version: 1,
+    onCreate: (db, version) async {
+      await db.execute(
+        '''CREATE TABLE Tasks(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT,
+          description TEXT,
+          date TEXT
+        )''',
+      );
+    },
+  );
+
+  dbList = await getTasksData();
+  print(await getTasksData());
+
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
