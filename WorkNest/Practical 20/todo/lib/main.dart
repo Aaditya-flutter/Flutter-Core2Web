@@ -74,8 +74,6 @@ void main() async {
   );
 
   dbList = await getTasksData();
-  print(await getTasksData());
-
   runApp(const MainApp());
 }
 
