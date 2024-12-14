@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:plant/view/login.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({super.key});
@@ -51,6 +52,14 @@ class GetStarted extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Login(),
+                  ),
+                );
+              },
               child: Container(
                 height: 50,
                 alignment: Alignment.center,

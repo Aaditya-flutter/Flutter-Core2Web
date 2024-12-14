@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:plant/view/verification.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -78,6 +79,14 @@ class Login extends StatelessWidget {
                 horizontal: 20,
               ),
               child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Verification(),
+                    ),
+                  );
+                },
                 child: Container(
                   height: 50,
                   alignment: Alignment.center,

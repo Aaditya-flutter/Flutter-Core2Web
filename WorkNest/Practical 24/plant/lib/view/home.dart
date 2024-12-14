@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:plant/view/detail_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -164,94 +165,104 @@ class Home extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 221,
+              height: 286,
               child: ListView.builder(
                 itemCount: 3,
                 padding: const EdgeInsets.only(
                     left: 20, bottom: 20, right: 20, top: 13),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Container(
-                    height: 188,
-                    width: 141,
-                    margin: const EdgeInsets.only(
-                      right: 13,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 255, 255, 1),
-                      borderRadius: BorderRadius.circular(9.4),
-                      boxShadow: const <BoxShadow>[
-                        BoxShadow(
-                          offset: Offset(0, 7.52),
-                          blurRadius: 18.8,
-                          color: Color.fromRGBO(0, 0, 0, 0.06),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DetailScreen(),
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 6.58,
-                        ),
-                        Image.asset(
-                            "assets/Images/136722116_a0b8a27e-7bb5-4535-b3fe-d1dcdb5caf6d 1.png"),
-                        const SizedBox(
-                          height: 8.46,
-                        ),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 14.1,
-                            ),
-                            Text(
-                              "Snake Plants",
-                              style: GoogleFonts.dmSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 13.16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(48, 48, 48, 1),
+                      );
+                    },
+                    child: Container(
+                      height: 188,
+                      width: 141,
+                      margin: const EdgeInsets.only(
+                        right: 13,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 255, 255, 1),
+                        borderRadius: BorderRadius.circular(9.4),
+                        boxShadow: const <BoxShadow>[
+                          BoxShadow(
+                            offset: Offset(0, 7.52),
+                            blurRadius: 18.8,
+                            color: Color.fromRGBO(0, 0, 0, 0.06),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 6.58,
+                          ),
+                          Image.asset(
+                              "assets/Images/136722116_a0b8a27e-7bb5-4535-b3fe-d1dcdb5caf6d 1.png"),
+                          const SizedBox(
+                            height: 8.46,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 14.1,
+                              ),
+                              Text(
+                                "Snake Plants",
+                                style: GoogleFonts.dmSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 13.16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(48, 48, 48, 1),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 6.5,
-                        ),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 14.1,
-                            ),
-                            Text(
-                              "₹350",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  fontSize: 16.92,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(62, 102, 24, 1),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6.5,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 14.1,
+                              ),
+                              Text(
+                                "₹350",
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
+                                    fontSize: 16.92,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(62, 102, 24, 1),
+                                  ),
                                 ),
                               ),
-                            ),
-                            const Spacer(),
-                            Container(
-                              height: 26,
-                              width: 26,
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 15),
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(237, 238, 235, 1),
-                                borderRadius: BorderRadius.circular(50),
+                              const Spacer(),
+                              Container(
+                                height: 26,
+                                width: 26,
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(right: 15),
+                                decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(237, 238, 235, 1),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Image.asset(
+                                  "assets/Images/shopping-bag (1).png",
+                                  width: 14,
+                                  height: 14,
+                                ),
                               ),
-                              child: Image.asset(
-                                "assets/Images/shopping-bag (1).png",
-                                width: 14,
-                                height: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -286,94 +297,104 @@ class Home extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 221,
+              height: 286,
               child: ListView.builder(
                 itemCount: 3,
                 padding: const EdgeInsets.only(
                     left: 20, bottom: 20, right: 20, top: 13),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Container(
-                    height: 188,
-                    width: 141,
-                    margin: const EdgeInsets.only(
-                      right: 13,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 255, 255, 1),
-                      borderRadius: BorderRadius.circular(9.4),
-                      boxShadow: const <BoxShadow>[
-                        BoxShadow(
-                          offset: Offset(0, 7.52),
-                          blurRadius: 18.8,
-                          color: Color.fromRGBO(0, 0, 0, 0.06),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DetailScreen(),
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 6.58,
-                        ),
-                        Image.asset(
-                            "assets/Images/136722116_a0b8a27e-7bb5-4535-b3fe-d1dcdb5caf6d 1.png"),
-                        const SizedBox(
-                          height: 8.46,
-                        ),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 14.1,
-                            ),
-                            Text(
-                              "Snake Plants",
-                              style: GoogleFonts.dmSans(
-                                textStyle: const TextStyle(
-                                  fontSize: 13.16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(48, 48, 48, 1),
+                      );
+                    },
+                    child: Container(
+                      height: 188,
+                      width: 141,
+                      margin: const EdgeInsets.only(
+                        right: 13,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 255, 255, 1),
+                        borderRadius: BorderRadius.circular(9.4),
+                        boxShadow: const <BoxShadow>[
+                          BoxShadow(
+                            offset: Offset(0, 7.52),
+                            blurRadius: 18.8,
+                            color: Color.fromRGBO(0, 0, 0, 0.06),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 6.58,
+                          ),
+                          Image.asset(
+                              "assets/Images/136722116_a0b8a27e-7bb5-4535-b3fe-d1dcdb5caf6d 1.png"),
+                          const SizedBox(
+                            height: 8.46,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 14.1,
+                              ),
+                              Text(
+                                "Snake Plants",
+                                style: GoogleFonts.dmSans(
+                                  textStyle: const TextStyle(
+                                    fontSize: 13.16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(48, 48, 48, 1),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 6.5,
-                        ),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 14.1,
-                            ),
-                            Text(
-                              "₹350",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  fontSize: 16.92,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(62, 102, 24, 1),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6.5,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 14.1,
+                              ),
+                              Text(
+                                "₹350",
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
+                                    fontSize: 16.92,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(62, 102, 24, 1),
+                                  ),
                                 ),
                               ),
-                            ),
-                            const Spacer(),
-                            Container(
-                              height: 26,
-                              width: 26,
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 15),
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(237, 238, 235, 1),
-                                borderRadius: BorderRadius.circular(50),
+                              const Spacer(),
+                              Container(
+                                height: 26,
+                                width: 26,
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(right: 15),
+                                decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(237, 238, 235, 1),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Image.asset(
+                                  "assets/Images/shopping-bag (1).png",
+                                  width: 14,
+                                  height: 14,
+                                ),
                               ),
-                              child: Image.asset(
-                                "assets/Images/shopping-bag (1).png",
-                                width: 14,
-                                height: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

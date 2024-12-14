@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:svg_flutter/svg_flutter.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
@@ -11,9 +10,14 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(251, 247, 248, 1),
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back_rounded,
-          color: Color.fromRGBO(62, 102, 24, 1),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: Color.fromRGBO(62, 102, 24, 1),
+          ),
         ),
       ),
       body: Column(
@@ -28,7 +32,7 @@ class DetailScreen extends StatelessWidget {
                 height: 243.75,
                 width: 195,
                 child: Image.asset(
-                  "assets/Images/136722116_a0b8a27e-7bb5-4535-b3fe-d1dcdb5caf6d 1.png",
+                  "assets/Images/136722116_a0b8a27e-7bb5-4535-b3fe-d1dcdb5caf6d 1 (1).png",
                   fit: BoxFit.fill,
                 ),
               );
@@ -96,11 +100,185 @@ class DetailScreen extends StatelessWidget {
             height: 37,
           ),
           Container(
-            height: 200,
+            height: 205,
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: const Color.fromRGBO(118, 152, 75, 1),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 11.0,
+                    top: 24,
+                    right: 11,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Image.asset("assets/Images/Group 5470.png"),
+                          const SizedBox(
+                            height: 19,
+                          ),
+                          Text(
+                            "Height",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            "30cm- 40cm",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 0.6),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Image.asset("assets/Images/thermometer.png"),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                            "Temperature",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            "20'C- 25'C",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 0.6),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Image.asset("assets/Images/Vector (1).png"),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            "Pot",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            "Ciramic Pot",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 0.6),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 11,
+                    right: 11,
+                    top: 30,
+                    bottom: 23.61,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "Total Price",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(255, 255, 255, 0.8),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "₹350",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 48.39,
+                        width: 150,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.06),
+                          color: const Color.fromRGBO(103, 133, 74, 1),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/Images/shopping-bag (2).png"),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Add to cart",
+                              style: GoogleFonts.rubik(
+                                textStyle: const TextStyle(
+                                  fontSize: 14.52,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

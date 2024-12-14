@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:plant/view/home.dart';
 
 class Verification extends StatelessWidget {
   const Verification({super.key});
@@ -12,9 +13,14 @@ class Verification extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 20.0),
-                child: Icon(Icons.arrow_back_rounded),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
+                  ),
+                ),
               ),
               const Spacer(),
               Transform.flip(
@@ -274,6 +280,14 @@ class Verification extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Home(),
+                  ),
+                );
+              },
               child: Container(
                 height: 50,
                 alignment: Alignment.center,

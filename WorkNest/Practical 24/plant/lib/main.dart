@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plant/view/detail_screen.dart';
+import 'package:plant/view/get_started.dart';
 // import 'package:plant/view/get_started.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DetailScreen(),
+      home: GetStarted(),
     );
   }
 }
